@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Поиск котов</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .card { border: 1px solid #ccc; border-radius: 8px; padding: 10px; margin-bottom: 10px; }
+        .card h3 { margin: 0; }
+        .buttons { margin-top: 10px; }
+        .buttons button { margin-right: 5px; }
+    </style>
+</head>
+<body>
+    <h1>🐱 Коты, ищущие дом</h1>
+    <div id="cards"></div>
+
+    <script>
+        const tg = window.Telegram.WebApp;
+        tg.ready();
+
+        const cats = [
+            { name: "Барсик", desc: "Рыжий и ласковый" },
+            { name: "Мурка", desc: "Игривый котенок" },
+            { name: "Снежок", desc: "Белоснежный красавец" },
+            { name: "Черныш", desc: "Тихий и спокойный" },
+            { name: "Пушок", desc: "Пушистый комочек счастья" },
+            { name: "Лапка", desc: "Любит играть с детьми" }
+        ];
+
+        const container = document.getElementById('cards');
+
+        cats.forEach(cat => {
+            const card = document.createElement('div');
+            card.className = 'card';
+
+            const name = document.createElement('h3');
+            name.textContent = cat.name;
+
+            const desc = document.createElement('p');
+            desc.textContent = cat.desc;
+
+            const buttons = document.createElement('div');
+            buttons.className = 'buttons';
+
+            const moreBtn = document.createElement('button');
+            moreBtn.textContent = 'Подробнее';
+            moreBtn.onclick = () => alert(`Подробности о ${cat.name}: ${cat.desc}`);
+
+            const likeBtn = document.createElement('button');
+            likeBtn.textContent = 'Лайкнуть';
+            likeBtn.onclick = () => tg.showAlert(`Вы лайкнули ${cat.name}!`);
+
+            buttons.appendChild(moreBtn);
+            buttons.appendChild(likeBtn);
+
+            card.appendChild(name);
+            card.appendChild(desc);
+            card.appendChild(buttons);
+
+            container.appendChild(card);
+        });
+    </script>
+</body>
+</html>
